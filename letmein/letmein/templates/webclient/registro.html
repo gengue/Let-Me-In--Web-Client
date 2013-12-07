@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block script %} 
+
+{% endblock %}
+{% block content %}
+{% block body %}<body onload="mostrarRegistros();">{% endblock %}
+<div id="registro">
+	<table id="contenido-tabla" border="1" align="center">
+	</table>
+	
+	
+	
+	
+	<button id="tabla-refresh" onclick="mostrarRegistros();">Actualizar</button>
+</div>
+{% endblock %}

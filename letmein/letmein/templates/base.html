@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+	<title>{% block title %} Let me in: Web client {% endblock %}</title>
+	{% block css %} <link rel="stylesheet" href="/media/css/estilo.css">{% endblock %}
+	<script type="text/javascript" src="/media/js/jquery-1.10.1.min.js"></script>
+	{% block script %} {% endblock %}
+	<script type="text/javascript">
+	$( document ).ready(mostrarUsuarios());
+
+	function mostrarUsuarios(){
+	    ruta = 'http://letmein-ws.esy.es/usuarios.php';
+	    $('#contenido-lista').html('<p id="ajax_loader"><img src="/media/images/ajax-loader.gif" /></p>');	   
+	     $.ajax({	    	
+	        url: ruta,
+	        datatype: "json",
+	    }).done(function(usuarios){
+	    				$('#contenido-lista').html("");
+	                    $("#tabla").html("");
+	                    $("#tabla").append('<tr><th>Cedula</th><th>Nombre</th><th>Tipo Empleado</th></th>');            
+	                    $.each(usuarios, function(index){
+	                      var cedula = usuarios[index].cedula;
+	                      var nombre = usuarios[index].nombres;
+	                      var apellido = usuarios[index].apellidos;
+	                      var tipoEmpleado = usuarios[index].tipoEmpleado;
+	                      $("#tabla").append("<tr><td>"+cedula+"</td><td>"+nombre+" "+apellido+"</td><td>"+tipoEmpleado+"</td></tr>");                    
+	                                        
+	                });                
+	            });  
+	}
+
+	function fechaSalida(id){
+		var fechasalida = null;
+		ruta = 'http://letmein-ws.esy.es/registros.php?id='+id;   
+		$.ajax({ 	
+	        url: ruta,
+	        datatype: "json",
+	    }).done(function(registro){
+	                      $.each(registro, function(index){
+	                      fechasalida = registro[index].fechasalida; 
+	                });                
+	            });  
+
+	    return fechasalida;
+	}
+
+	function mostrarRegistros(){
+	    var ruta = 'http://letmein-ws.esy.es/registros.php';
+	    var nombre;
+	    var apellido;
+	    var fechaIngreso;
+	    var id;
+	    var fechaSalida;
+	    $('#contenido-tabla').html('<p id="ajax_loader"><img src="/media/images/ajax-loader.gif" /></p>');	   
+	     $.ajax({	    	
+	        url: ruta,
+	        datatype: "json",
+	    }).done(function(registro){
+	    				$("#contenido-tabla").html("");	
+	    				$("#contenido-tabla").append('<tr><th>Empleado</th><th>Fecha Ingreso</th><th>Fecha Salida</th></th>');                    
+	                    $.each(registro, function(index){
+	                      nombre = registro[index].nombres;
+	                      apellido = registro[index].apellidos;
+	                      fechaIngreso = registro[index].fechaYhora;
+	                      id = registro[index].entradaid;
+	                      $.get( "http://letmein-ws.esy.es/registros.php?id="+id, function( data ) { 
+	                      	  fechaSalida = data[0].fechasalida;
+	                      	  $("#contenido-tabla").append("<tr>"+"<td>"+nombre+" "+apellido+"</td><td>"+fechaIngreso+"</td><td>"+fechaSalida+"</td></tr>");
+							}, "json");
+	                     // $("#contenido-tabla").append("<tr>"+"<td>"+nombre+" "+apellido+"</td><td>"+fechaIngreso+"</td><td>"+fechaSalida+"</td></tr>");
+	                });                
+	            });
+	    /*
+	    ruta = 'http://letmein-ws.esy.es/registros.php?id='+id;   
+		$.ajax({ 	
+	        url: ruta,
+	        datatype: "json",
+	    }).done(function(registro){
+	                      $.each(registro, function(index){
+	                      fechasalida = registro[index].fechasalida; 
+	                });                
+	            });  
+	    */
+	}
+	</script>
+</head>
+{% block body %}<body onload="mostrarUsuarios();">{% endblock %}
+	<div id="ventana">
+		<header>
+		<img src="/media/images/logo.png"/>
+		<hgroup>
+		</hgroup>
+		<nav>
+			<ul>
+				<a href="/"><li>Usuarios</li></a>
+				<a href="/registro"><li>Registros</li></a>
+			</ul>
+		</nav>	
+	</header>
+	<section>
+		<article>
+			<div id="contenido">				
+			{% block content %}
+			{% endblock %}	
+			</div>
+		</article>		
+	</section>
+	</div>
+	
+	<br>
+	<img src="/media/images/djangopowered.gif"/>
+	<footer>The 3 Ball soft - Copyright © 2013</footer>
+</body>
+</html>
