@@ -45,12 +45,7 @@
 	}
 
 	function mostrarRegistros(){
-	    var ruta = 'http://letmein-ws.esy.es/registros.php';
-	    var nombre;
-	    var apellido;
-	    var fechaIngreso;
-	    var id;
-	    var fechaSalida;
+	    ruta = 'http://letmein-ws.esy.es/registros.php';
 	    $('#contenido-tabla').html('<p id="ajax_loader"><img src="/media/images/ajax-loader.gif" /></p>');	   
 	     $.ajax({	    	
 	        url: ruta,
@@ -59,12 +54,12 @@
 	    				$("#contenido-tabla").html("");	
 	    				$("#contenido-tabla").append('<tr><th>Empleado</th><th>Fecha Ingreso</th><th>Fecha Salida</th></th>');                    
 	                    $.each(registro, function(index){
-	                      nombre = registro[index].nombres;
-	                      apellido = registro[index].apellidos;
-	                      fechaIngreso = registro[index].fechaYhora;
-	                      id = registro[index].entradaid;
+	                      var nombre = registro[index].nombres;
+	                      var apellido = registro[index].apellidos;
+	                      var fechaIngreso = registro[index].fechaYhora;
+	                      var id = registro[index].entradaid;
 	                      $.get( "http://letmein-ws.esy.es/registros.php?id="+id, function( data ) { 
-	                      	  fechaSalida = data[0].fechasalida;
+	                      	  var fechaSalida = data[0].fechasalida;
 	                      	  $("#contenido-tabla").append("<tr>"+"<td>"+nombre+" "+apellido+"</td><td>"+fechaIngreso+"</td><td>"+fechaSalida+"</td></tr>");
 							}, "json");
 	                     // $("#contenido-tabla").append("<tr>"+"<td>"+nombre+" "+apellido+"</td><td>"+fechaIngreso+"</td><td>"+fechaSalida+"</td></tr>");
