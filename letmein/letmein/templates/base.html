@@ -46,12 +46,12 @@
 
 	function mostrarRegistros(){
 	    ruta = 'http://letmein-webservices.esy.es/registros.php';
-	    $('#contenido-tabla').html('<p id="ajax_loader"><img src="/media/images/ajax-loader.gif" /></p>');	   
+	    $('#registro').html('<p id="ajax_loader"><img src="/media/images/ajax-loader.gif" /></p>');	   
 	     $.ajax({	    	
 	        url: ruta,
 	        datatype: "json",
 	    }).done(function(registro){
-	    				$("#contenido-tabla").html("");	
+	    				$("#registro").html("");	
 	    				$("#contenido-tabla").append('<tr><th>Empleado</th><th>Fecha Ingreso</th><th>Fecha Salida</th></th>');                    
 	                    $.each(registro, function(index){
 	                      var nombre = registro[index].nombres;
