@@ -15,10 +15,6 @@ body
 	margin-left: 15%;
 	margin-right: 15%;
 	margin-top: 0%;
-
-}
-#contenido-tabla{
-	padding-bottom: 5px;
 }
 #contenido{
 	text-align: center;
@@ -28,7 +24,7 @@ body
 	background-color: #f9f9f9;
 	box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
 }
-#ajx_loader{
+#ajax_loader{
 	text-align: center;
 }
 #registro{
@@ -74,3 +70,4 @@ section h1{
 	color: #FFBF00;	
 	box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
 }
+

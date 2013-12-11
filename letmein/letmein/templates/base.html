@@ -31,7 +31,7 @@
 
 	function fechaSalida(id){
 		var fechasalida = null;
-		ruta = 'http://letmein-ws.esy.es/registros.php?id='+id;   
+		ruta = 'http://letmein-webservices.esy.es/registros.php?id='+id;   
 		$.ajax({ 	
 	        url: ruta,
 	        datatype: "json",
@@ -46,12 +46,16 @@
 
 	function mostrarRegistros(){
 	    ruta = 'http://letmein-webservices.esy.es/registros.php';
+<<<<<<< HEAD
 	    $('#contenido-tabla').html('<p id="ajax_loader"><img src="/media/images/ajax-loader.gif" /></p>');	   
+=======
+	    $('#registro').html('<p id="ajax_loader"><img src="/media/images/ajax-loader.gif" /></p>');	   
+>>>>>>> 664538bf9bd42ada5c2ee99112ca38f35670233b
 	     $.ajax({	    	
 	        url: ruta,
 	        datatype: "json",
 	    }).done(function(registro){
-	    				$("#contenido-tabla").html("");	
+	    				$("#registro").html("");	
 	    				$("#contenido-tabla").append('<tr><th>Empleado</th><th>Fecha Ingreso</th><th>Fecha Salida</th></th>');                    
 	                    $.each(registro, function(index){
 	                      var nombre = registro[index].nombres;
